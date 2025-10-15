@@ -15,6 +15,49 @@ Responderemos o mais rápido possível.
 
 ---
 
+## ⚡ Instruções de Setup Rápido
+
+### 🧱 Requisitos do ambiente
+- Node.js **>= 18**
+- npm ou yarn
+- Docker (opcional)
+
+### 📦 Passos sugeridos
+
+**1. Clonar o repositório**
+```bash
+git clone <url-do-repo>
+cd nome-do-projeto
+```
+
+**2. Instalar dependências**
+```bash
+# Backend
+cd backend
+npm install
+
+# Frontend
+cd ../frontend
+npm install
+```
+
+**3. Executar os projetos**
+```bash
+# Backend (NestJS)
+npm run start:dev
+
+# Frontend (React + Vite)
+npm run dev
+```
+
+**4. Acessar o aplicativo**
+```
+Frontend: http://localhost:5173
+Backend:  http://localhost:3000
+```
+
+---
+
 ## 🎯 Objetivo do Projeto
 
 Criar um **aplicativo de chat em tempo real** que permita a comunicação entre diferentes usuários (em múltiplas abas do navegador), demonstrando domínio em:
@@ -86,6 +129,9 @@ Esses itens não são obrigatórios, mas **valem pontos extras** e mostram seu d
 - Animações sutis e feedbacks visuais (ex: envio de mensagem, entrada/saída)
 - Suporte a **emojis** ou upload de **imagens**
 - Testes unitários simples (ex: Jest, React Testing Library)
+- Uso de **Tailwind CSS** para estilização
+- Uso de **Vite** para build e dev server
+- Uso de **shadcn/ui** para componentes visuais e consistência de design
 
 ### 🚀 DevOps / Infra
 - Configuração via **Docker** (opcional)
@@ -126,4 +172,6 @@ Envie o projeto por meio de um **repositório público no GitHub**, contendo:
 
 Boa sorte e bom código! 🚀  
 **Equipe ENTERness**
+
+
 
