@@ -2,176 +2,114 @@
 
 # 🧩 Desafio Técnico — Desenvolvedor FullStack (NestJS + React + TypeScript)
 
-Olá, Desenvolvedor 👋  
-Bem-vindo(a) ao desafio técnico da **ENTERness**!
+Olá, Desenvolvedor(a) 👋  
+Bem-vindo(a) ao desafio técnico **Nível Hard** da **ENTERness**!
 
-Este teste tem como objetivo avaliar sua capacidade de desenvolver uma aplicação **FullStack moderna**, aplicando **boas práticas de arquitetura**, **componentização**, **organização de código**, **uso de TypeScript**, e **integração em tempo real**.
+Este teste foi desenhado para avaliar não apenas sua capacidade de codificar, mas sua habilidade de arquitetar soluções **robustas, escaláveis e profissionais**. Queremos ver como você lida com persistência real, autenticação segura, concorrência em tempo real e uma UX impecável.
 
-Você terá **até 2 dias** para realizar o desafio a partir do recebimento deste documento.  
-Mesmo que não finalize tudo, valorizamos muito **sua abordagem, clareza de código e estrutura do projeto**.
-
-Se surgir qualquer dúvida, entre em contato pelo e-mail: **jean@enterness.com**  
-Responderemos o mais rápido possível.
+**Prazo sugerido:** 2 dias.  
+**Foco:** Qualidade de código, Arquitetura (Clean/Hexagonal), Performance Frontend e "Refinamento" (detalhes que encantam).
 
 ---
 
-## ⚡ Instruções de Setup Rápido
+## 🏛️ Cenário
 
-### 🧱 Requisitos do ambiente
-- Node.js **>= 18**
-- npm ou yarn
-- Docker (opcional)
-
-### 📦 Passos sugeridos
-
-**1. Clonar o repositório**
-```bash
-git clone <url-do-repo>
-cd nome-do-projeto
-```
-
-**2. Instalar dependências**
-```bash
-# Backend
-cd backend
-npm install
-
-# Frontend
-cd ../frontend
-npm install
-```
-
-**3. Executar os projetos**
-```bash
-# Backend (NestJS)
-npm run start:dev
-
-# Frontend (React + Vite)
-npm run dev
-```
-
-**4. Acessar o aplicativo**
-```
-Frontend: http://localhost:5173
-Backend:  http://localhost:3000
-```
+Você deve construir um sistema de chat profissional onde o histórico é preservado, o acesso é seguro e a experiência do usuário é rica em feedback visual.
+Nada de "em memória". Aqui, queremos ver **Banco de Dados Relacional** e **Regras de Negócio**.
 
 ---
 
-## 🎯 Objetivo do Projeto
+## 🎯 Objetivo
 
-Criar um **aplicativo de chat em tempo real** que permita a comunicação entre diferentes usuários (em múltiplas abas do navegador), demonstrando domínio em:
-
-- **Back-end:** NestJS com TypeScript  
-- **Front-end:** React com TypeScript  
-- **Comunicação em tempo real:** WebSocket (Socket.IO, ws, ou outra lib equivalente)
-
----
-
-## 🧠 Descrição do Desafio
-
-Crie um chat web simples onde:
-
-- Cada aba do navegador representa um usuário diferente.  
-- Antes de acessar o chat, o usuário deve informar seu **nome de exibição**.  
-- Após entrar, ele pode **enviar e receber mensagens** em tempo real.  
-- Todas as abas conectadas devem receber as mensagens dos demais usuários.
+Criar uma aplicação FullStack (Monorepo ou Repos separados) composta por:
+1.  **Backend (API + WebSocket):** NestJS + MariaDB.
+2.  **Frontend (SPA):** React + Vite + TailwindCSS.
+3.  **Infra:** Docker & Docker Compose.
 
 ---
 
-## ⚙️ Requisitos Funcionais
+## 🔥 Requisitos Funcionais (Obrigatórios)
 
-1. **Login Simples**  
-   - Solicitar o nome do usuário antes de acessar o chat.  
-   - Armazenar o nome na sessão local (localStorage, context, etc.).  
+### 1. Autenticação & Usuários
+- **Login/Cadastro:** O usuário deve criar conta (email/senha) ou entrar.
+- **Segurança:** Autenticação via **JWT (JSON Web Token)**.
+- **Socket Auth:** A conexão WebSocket só deve ser estabelecida se o token JWT for válido (Handshake Auth).
 
-2. **Chat em Tempo Real**  
-   - Exibir mensagens enviadas por todos os usuários conectados.  
-   - Mostrar o nome de quem enviou cada mensagem.  
-   - Scroll automático para a última mensagem.
+### 2. Gestão de Salas (Rooms)
+- Usuários podem criar novas salas ou entrar em salas existentes.
+- **Contador de Usuários:** A lista de salas deve mostrar, em tempo real, quantos usuários estão online naquela sala (Ex: "Devs Java (3 online)").
+- **Relacionamento:** Um usuário pode estar em várias salas? Ou apenas uma por vez? (Defina a regra e implemente consistentemente). Sugestão: Apenas uma por vez para simplificar o socket, ou múltiplas para aumentar o desafio.
 
-3. **Feedback Visual**  
-   - Mostrar quando um usuário entra ou sai da sala.  
-   - Mostrar mensagens de status (“Jean entrou na sala”, “Maria saiu da sala”, etc.).
+### 3. Mensagens & Persistência
+- **Histórico:** Todas as mensagens devem ser salvas no **Banco de Dados (MariaDB)**.
+- **Relacionamentos:**
+    - `User` -> `Message` (1:N)
+    - `Room` -> `Message` (1:N)
+- Ao entrar em uma sala, o usuário deve carregar o histórico de mensagens anterior.
 
----
-
-## 🧩 Requisitos Técnicos (Obrigatórios)
-
-### Backend
-- **Framework:** NestJS (obrigatório)
-- **Linguagem:** TypeScript
-- **Comunicação:** WebSocket (ex: Socket.IO)
-- **Persistência:** Em memória (não é necessário banco)
-- **Boas práticas:** uso de módulos, serviços, DTOs e tipagem forte.
-
-### Frontend
-- **Framework:** React com TypeScript
-- **Gerenciamento de estado:** useContext, Zustand, Redux Toolkit ou outro equivalente
-- **Componentização:** componentes reaproveitáveis e bem estruturados
-- **Comunicação com backend:** via WebSocket
-- **UI mínima:** campo de mensagem, botão enviar e lista de mensagens
+### 4. Funcionalidades de Chat (Real-time)
+- Envio e recebimento de mensagens instantâneo.
+- **Broadcast:** Apenas usuários na mesma sala recebem a mensagem.
 
 ---
 
-## 💎 Diferenciais (Bônus)
+## 💎 frontend Pro: Regras de Ouro (Aprofundado)
 
-Esses itens não são obrigatórios, mas **valem pontos extras** e mostram seu domínio técnico:
+Aqui é onde avaliaremos sua senioridade no Front-end. Não basta funcionar, tem que ser **profissional**.
 
-### 👨‍💻 Backend
-- Implementar **salas de chat** (usuário escolhe ou cria uma sala antes de entrar)
-- Adicionar **validação** usando `class-validator`
-- Criar **serviço de logging** customizado
-- Estrutura modular limpa (Domain Driven Design, Clean Architecture)
+### 🎨 1. Arquitetura e State Management
+- **Separação de Estado:** Demonstre clareza entre **Global State** (sessão do usuário, tema UI - ex: Zustand/Context API) e **Server State** (listas de mensagens, salas - ex: TanStack Query). Não misture tudo em um Redux gigante sem necessidade.
+- **Feature-Based Structure:** Organize seu projeto por features (`features/auth`, `features/chat`), não apenas por tipo de arquivo (`components`, `hooks`).
+- **Custom Hooks:** Toda lógica complexa deve ser extraída para hooks customizados (ex: `useChatSocket`, `useAuth`).
 
-### 💅 Frontend
-- Layout **responsivo e intuitivo**
-- Animações sutis e feedbacks visuais (ex: envio de mensagem, entrada/saída)
-- Suporte a **emojis** ou upload de **imagens**
-- Testes unitários simples (ex: Jest, React Testing Library)
-- Uso de **Tailwind CSS** para estilização
-- Uso de **Vite** para build e dev server
-- Uso de **shadcn/ui** para componentes visuais e consistência de design
+### ⚡ 2. Performance e UX Avançada
+- **Optimistic Updates:** Quando o usuário enviar uma mensagem, ela deve aparecer **imediatamente** na lista (UI), antes mesmo do servidor confirmar (aplique status "enviando..." e trate erros caso falhe).
+- **Lista Virtualizada:** Se o chat tiver 10.000 mensagens, o navegador vai travar? Implemente **Virtual Scroll** (ex: `react-virtuoso` ou `react-window`) para renderizar apenas o visível.
+- **Skeleton Loading:** Nada de "spinners" genéricos o tempo todo. Use Skeletons enquanto os dados carregam.
+- **Lazy Loading:** Use `React.lazy` e `Suspense` para carregar rotas ou componentes pesados sob demanda.
 
-### 🚀 DevOps / Infra
-- Configuração via **Docker** (opcional)
-- Script `npm run build` funcional para front e back
-- Configuração de `.env` e variáveis de ambiente
-- Documentação de setup (`README.md` com instruções de execução)
+### 🛡️ 3. Robustez e Tratamento de Erros
+- **Error Boundaries:** O que acontece se um componente quebrar? A tela fica branca? Implemente Error Boundaries para capturar falhas de renderização.
+- **Reconexão Inteligente:** Se a internet cair, o chat deve avisar e tentar reconectar (Socket.io já ajuda, mas a UI deve refletir isso com clareza).
+- **Tratamento de Forms:** Use **React Hook Form** + **Zod** para validação de formulários (Login/Cadastro). Feedback visual imediato nos inputs inválidos.
 
----
-
-## 🧭 Critérios de Avaliação
-
-| Critério | Peso | Descrição |
-|-----------|------|-----------|
-| **Clareza e Organização do Código** | 25% | Estrutura limpa, coesa e fácil de entender |
-| **Boas Práticas e Arquitetura** | 20% | Uso adequado de módulos, tipagem e separação de responsabilidades |
-| **Funcionalidade** | 20% | O chat funciona em tempo real conforme o esperado |
-| **Componentização / Reutilização** | 15% | Código React modular e reaproveitável |
-| **UX e Design** | 10% | Interface simples, agradável e funcional |
-| **Extras e Criatividade** | 10% | Diferenciais técnicos e melhorias implementadas |
+### ♿ 4. Acessibilidade (Bônus de Senioridade)
+- A aplicação é navegável via **Teclado** (Tab)?
+- Os inputs tem **Labels** corretos ou `aria-label`?
+- O contraste de cores está adequado?
 
 ---
 
-## 🧾 Entrega
+## ⚙️ Backend & DevOps (Requisitos Profissionais)
 
-Envie o projeto por meio de um **repositório público no GitHub**, contendo:
-
-- Código-fonte completo (front e back)  
-- Instruções de execução no arquivo `README.md`  
-- (Opcional) Link de deploy se desejar publicar (ex: Render, Vercel, etc.)
+- **Banco de Dados:** Use **MariaDB** rodando via Docker.
+- **ORM:** TypeORM (com Migrations).
+- **Validação Robustas:** `class-validator` em todos os DTOs.
+- **E2E & Testes Unitários:** O backend deve ter testes. Pelo menos os serviços principais.
+- **Docker Compose:** O avaliador deve rodar apenas `docker-compose up` e ter **TUDO** rodando (Banco + Back + Front).
 
 ---
 
-## 💬 Observações Finais
+## 📊 Critérios de Avaliação Atualizados
 
-- Foque na **qualidade e clareza do código**, não apenas na entrega funcional.  
-- Demonstre boas práticas e preocupação com manutenção.  
-- Todos os participantes recebem **feedback construtivo**.  
+| Critério | Peso | O que olhamos? |
+| :--- | :--- | :--- |
+| **Arquitetura (Front & Back)** | 30% | Separação de responsabilidades, File Structure, Clean Code. |
+| **Frontend "Pro"** | 25% | Optimistic Updates, Virtualização, Gestão de Estado correta. |
+| **Robustez & Bug-free** | 20% | O sistema aguenta refresh? O socket não duplica mensagens? |
+| **Backend & Banco** | 15% | Modelagem, Migrations, Segurança. |
+| **UI/UX & "Refinamento"** | 10% | Bonito, polido, animações fluídas. |
 
-Boa sorte e bom código! 🚀  
-**Equipe ENTERness**
+---
 
+## 🚀 Entrega
 
+1. Crie um repositório **público** no GitHub.
+2. O `README.md` do projeto deve conter:
+    - Instruções claras de como rodar (focadas no Docker).
+    - Explicar **por que** escolheu tais bibliotecas no Frontend.
+    - Prints ou GIF da aplicação rodando.
+3. Envie o link para **jean@enterness.com** com o assunto "Desafio FullStack Senior - [Seu Nome]".
+
+**Boa sorte! Surpreenda-nos.** 🚀
 
